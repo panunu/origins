@@ -5,21 +5,49 @@
                 <h1>Origins</h1>
             </li>
         </ul>
+
+        <section class="top-bar-section">
+            <ul class="left">
+                <li>
+                    <a href="#">Background</a>
+                </li>
+            </ul>
+        </section>
     </nav>
 </div>
 
+<map zoom="2" center="[20, 0]" disable-default-u-i="true">
+    <marker
+        ng-repeat="marker in markers"
+        position="{{ marker.location.position }}"
+        title="{{ marker.brand }}"
+        animation="Animation.DROP"
+        on-click="showInfoWindow(event, 'marker-info', {data: marker})"
+    >
+    </marker>
 
-<google-map center="map.center" zoom="map.zoom" style="width: 100%;">
-    <markers models="map.markers" coords="'self'"></markers>
-</google-map>
+    <info-window id="marker-info">
+        <h3>[[data.brand]]</h3>
 
+        <span class="label secondary rounded">
+            Made in [[data.location.country]]
+        </span>
+
+        <p>
+            <small style="line-height: 1em">
+                Origin of "made in" derived from [[data.collection.name]]
+                with the approximate price of [[data.collection.price]] EUR.
+            </small>
+        </p>
+    </info-window>
+</map>
 
 <div class="row">
     <div class="large-12 columns">
-        <h1>Lus</h1>
+        <h2>Why?</h2>
 
         <p>
-            Lus lus
+
         </p>
     </div>
 </div>

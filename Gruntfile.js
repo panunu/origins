@@ -177,4 +177,11 @@ module.exports = function (grunt) {
         'newer:jshint',
         'build'
     ]);
+
+    grunt.registerTask('dev', [
+        'clean:dist',
+        'bowerInstall',
+        'autoprefixer',
+        'copy:dist'
+    ]);
 };

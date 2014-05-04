@@ -2,35 +2,47 @@
 
 /* global _ */
 angular.module('origins').controller('MapCtrl', function ($scope, $resource) {
-    $scope.map = {
-        zoom: 2,
-        center: {
-            latitude: 20,
-            longitude: 0
-        },
-        draggable: true,
-        markers: []
-    };
+    $scope.markers = [];
 
     $resource('/data/countries.json').get().$promise.then(
         function (response) {
-            var countries = _.map(response.data, function (row) {
-                return {
-                    latitute: row[12],
-                    longitude: row[13],
-                    title: row[8]
-                };
-            });
+            var countries = _.indexBy(
+                _.map(response.data, function (row) {
+                    return {
+                        country: row[8],
+                        position: [parseFloat(row[12]), parseFloat(row[13])]
+                    };
+                }),
+                'country'
+            );
 
-            $scope.map.markers = countries;
-            /*
+            // TODO: Separate JSON.
             $scope.markers = [
                 {
                     brand: 'Tiger of Sweden',
-                    country: 'Italy',
-                    collection: 'Jeans'
+                    collection: {
+                        name: 'men\'s jeans',
+                        price: 150
+                    },
+                    location: countries.Italy
+                },
+                {
+                    brand: 'J. Lindeberg',
+                    collection: {
+                        name: 'men\'s trench',
+                        price: 250
+                    },
+                    location: countries.Turkey
+                },
+                {
+                    brand: 'Sir Oliver',
+                    collection: {
+                        name: 'men\'s blazer',
+                        price: 160
+                    },
+                    location: countries.Turkey
                 }
-            ];*/
+            ];
         }
     );
 });

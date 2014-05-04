@@ -2,7 +2,8 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.angular-google-map-container {
+map, div[map] {
+    display: block;
     width: 100%;
     height: 550px;
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('origins', ['ngRoute', 'ngResource', 'google-maps'])
+    .module('origins', ['ngRoute', 'ngResource', 'ngMap'])
     .config(function ($routeProvider) {
         $routeProvider
         .when('/', {
