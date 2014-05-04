@@ -7,21 +7,38 @@
         </ul>
 
         <section class="top-bar-section">
-            <ul class="left">
+            <ul class="right">
                 <li>
-                    <a href="#">Background</a>
+                    <a ng-href="#about" href="">About</a>
+                </li>
+
+                <li>
+                    <button class="button" ng-click="showStatistics = !showStatistics">
+                        Statistics
+                    </button>
                 </li>
             </ul>
         </section>
     </nav>
 </div>
 
+<div class="row" ng-show="showStatistics">
+    <div class="large-12 columns">
+        <ul class="small-block-grid-10">
+            <li ng-repeat="(country, count) in collections.perCountry" class="text-center">
+                <small>{{ country }}</small><br>{{ count }}
+            </li>
+        </ul>
+    </div>
+</div>
+
 <map zoom="2" center="[20, 0]" disable-default-u-i="true">
     <marker
-        ng-repeat="marker in markers"
+        ng-repeat="marker in collections.onMap"
         position="{{ marker.location.position }}"
         title="{{ marker.brand }}"
         animation="Animation.DROP"
+        optimized="true"
         on-click="showInfoWindow(event, 'marker-info', {data: marker})"
     ></marker>
 
@@ -32,8 +49,10 @@
             Made in [[data.location.country]]
         </span>
 
-        <p>
-            <small style="line-height: 1em">
+        <p style="line-height: 1">
+            <br>
+
+            <small>
                 Origin of "made in" derived from [[data.collection.name]]
                 with the approximate price of [[data.collection.price]] EUR.
             </small>
@@ -43,10 +62,14 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h2>Why?</h2>
+        <h2 id="about">About</h2>
 
         <p>
+            All locations on the map are approximate and only indicating the country (not a specific address).
+        </p>
 
+        <p>
+            Does not take into the count the fact that the materials
         </p>
     </div>
 </div>
