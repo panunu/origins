@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "brand": "Tiger of Sweden",
+            "collection": {
+                "name": "men's jeans",
+                "price": 150
+            },
+            "location": "Italy"
+        },
+        {
+            "brand": "J. Lindeberg",
+            "collection": {
+                "name": "men's trench",
+                "price": 250
+            },
+            "location": "Turkey"
+        },
+        {
+            "brand": "Sir Oliver",
+            "collection": {
+                "name": "men's blazer",
+                "price": 160
+            },
+            "location": "Turkey"
+        },
+        {
+            "brand": "DC Shoes",
+            "collection": {
+                "name": "men's snowboarding jacket",
+                "price": 275
+            },
+            "location": "China"
+        },
+        {
+            "brand": "Tiger of Sweden",
+            "collection": {
+                "name": "men's trousers",
+                "price": 150
+            },
+            "location": "Romania"
+        }
+    ]
+}
