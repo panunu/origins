@@ -43,8 +43,8 @@ module.exports = function (grunt) {
                 tasks: ['karma']
             },
             styles: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-                tasks: ['newer:copy:styles', 'autoprefixer']
+                files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+                tasks: ['recess', 'autoprefixer']
             },
             gruntfile: {
                 files: ['Gruntfile.js']
@@ -187,6 +187,21 @@ module.exports = function (grunt) {
             }
         },
 
+        recess: {
+            options: {
+                compile: true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: '{,*/}*.less',
+                    dest: '.tmp/styles/',
+                    ext: '.css'
+                }]
+            }
+        },
+
         // The following *-min tasks produce minified files in the dist folder
         cssmin: {
             options: {
@@ -275,26 +290,21 @@ module.exports = function (grunt) {
                     cwd: '.tmp/images',
                     dest: '<%= yeoman.dist %>/images',
                     src: ['generated/*']
-                }] // TODO: Copy data folder.
-            },
-            styles: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
+                },
+                {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: ['data/*.json']
+                }]
             }
         },
 
         // Run some tasks in parallel to speed up the build process
         concurrent: {
-            server: [
-                'copy:styles'
-            ],
-            test: [
-                'copy:styles'
-            ],
+            server: [],
+            test: [],
             dist: [
-                'copy:styles',
                 'imagemin',
                 'svgmin'
             ]
@@ -345,6 +355,7 @@ module.exports = function (grunt) {
             'clean:server',
             'bowerInstall',
             'concurrent:server',
+            'recess',
             'autoprefixer',
             'connect:livereload',
             'watch'
@@ -364,11 +375,17 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
+    grunt.registerTask('default', [
+        'newer:jshint',
+        'build'
+    ]);
+
     grunt.registerTask('build', [
         'clean:dist',
         'bowerInstall',
         'useminPrepare',
         'concurrent:dist',
+        'recess',
         'autoprefixer',
         'concat',
         'ngmin',
@@ -379,10 +396,5 @@ module.exports = function (grunt) {
         'rev',
         'usemin',
         'htmlmin'
-    ]);
-
-    grunt.registerTask('default', [
-        'newer:jshint',
-        'build'
     ]);
 };
